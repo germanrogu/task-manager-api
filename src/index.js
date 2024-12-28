@@ -1,7 +1,7 @@
 const app = require("./app");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const { swaggerUi, swaggerSpec } = require("./docs/swagger");
+const setupSwagger = require("./docs/swagger");
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ const startServer = async () => {
     await connectDB();
     console.log("Database connected successfully");
 
-    app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    setupSwagger(app);
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

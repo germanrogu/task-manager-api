@@ -10,7 +10,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:5001",
+      url: process.env.PORT,
     },
   ],
 };
@@ -22,4 +22,8 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = { swaggerUi, swaggerSpec };
+const setupSwagger = (app) => {
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+};
+
+module.exports = setupSwagger;
